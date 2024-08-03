@@ -22,7 +22,11 @@ struct Home: View {
         .tabItem {
           Label("Settings", systemImage: "gear")
         }
-    }.accentColor(.black)
+    }.accentColor(.white)
+      .onAppear {
+        UITabBar.appearance().backgroundColor = .white.withAlphaComponent(0.15)
+        UITabBar.appearance().unselectedItemTintColor = UIColor.white
+      }
   }
 }
 
