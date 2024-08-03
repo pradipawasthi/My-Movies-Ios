@@ -9,9 +9,9 @@ import SwiftUI
 
 enum Page: String, CaseIterable {
   
-case page1 = "playstation.logo"
-case page2 = "gamecontroller.fill"
-case page3 = "text.bubble.fill"
+case page1 = "movieclapper"
+case page2 = "vision.pro.badge.play"
+case page3 = "popcorn"
 
   
   var title: String {
