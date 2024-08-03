@@ -10,6 +10,8 @@ import SwiftUI
 struct IntroView: View {
   // view properties
   @State private var activePage : Page = .page1
+  @GestureState private var dragOffset: CGSize = .zero
+
   
   var body: some View {
     GeometryReader {
@@ -18,24 +20,33 @@ struct IntroView: View {
       VStack {
         Spacer(minLength: 0)
         MorphingSymbolView(symbol: activePage.rawValue, config: .init(font: .system(size: 150, weight: .bold), frame: .init(width: 250, height: 200), radius: 30, foregroundColor: .white))
+          .offset(x: dragOffset.width)
+          .gesture(
+            DragGesture()
+                .updating($dragOffset) { value, state, _ in
+                    state = value.translation
+                }
+                .onEnded { value in
+                    if value.translation.width < -100 {
+                      activePage = activePage.nextPage
+                    } else if value.translation.width > 100 {
+                      activePage = activePage.previousPage
+                    }
+                }
+        )
         
         TextContents(size: size)
         Spacer(minLength: 0)
-        
+//        
         IndicatorView()
         ContinueButton()
-        
-        //            .onTapGesture {
-        //              activePage = activePage.nextPage
-        //            }
-        
+//        
+    
       }
       .frame(maxWidth: .infinity)
       .overlay(alignment: .top){
         HeaderView()
       }
-      
-      
     }.background {
       Rectangle()
         .fill(.blue.gradient)
@@ -53,7 +64,7 @@ struct IntroView: View {
           Text(page.title)
             .lineLimit(1)
             .font(.title2)
-          fontWeight(.semibold)
+            .fontWeight(.semibold)
             .kerning(1.1)
             .frame(width: size.width)
         }
@@ -132,7 +143,7 @@ struct IntroView: View {
   @ViewBuilder
   func ContinueButton() -> some View {
     Button {
-      activePage == activePage.nextPage
+      activePage = activePage.nextPage
     } label : {
       Text(activePage == .page3 ? "Login into My Movies App" : "Continue")
         .contentTransition(.identity)

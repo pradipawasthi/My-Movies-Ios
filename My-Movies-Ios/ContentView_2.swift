@@ -12,7 +12,6 @@ struct ContentView_2: View {
     var body: some View {
       IntroView()
         .environment(\.colorScheme, .dark)
-       
     }
 }
 

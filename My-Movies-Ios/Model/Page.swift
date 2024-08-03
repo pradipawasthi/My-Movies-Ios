@@ -39,9 +39,9 @@ case page3 = "text.bubble.fill"
     case .page1:
       0
     case .page2:
-      0
+      1
     case .page3:
-      0
+      2
     }
   }
   

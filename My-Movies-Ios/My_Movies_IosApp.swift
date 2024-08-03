@@ -25,7 +25,7 @@ struct My_Movies_IosApp: App {
 
     var body: some Scene {
         WindowGroup {
-          ContentView_2()
+          IntroView()
         }
         .modelContainer(sharedModelContainer)
     }
